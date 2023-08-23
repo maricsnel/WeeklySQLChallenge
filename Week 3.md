@@ -26,13 +26,15 @@ Customer 11:Started with a trial on 2020-11-19.Churned on 2020-11-26, but the pl
 ## Data Analysis Questions:
 
 ### 1. How many customers has Foodie-Fi ever had?
+```sql
 SELECT COUNT(DISTINCT Customer_ID)
 FROM foodie_fi.subscriptions;
 ```
 
 This query counts the number of distinct customer IDs in the subscriptions table, which gives the total number of customers Foodie-Fi has ever had.
-|----------|----------------------|
-| count    | 1000                 |
+| count    |
+|----------|
+| 1000                 |
 
 ### 2. What is the monthly distribution of trial plan start_date values for our dataset?
 ```sql
