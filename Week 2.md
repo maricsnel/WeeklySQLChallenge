@@ -1,5 +1,5 @@
 <div align="center">
-  <h1>Danny’s Diner SQL Case Study</h1>
+  <h1>Pizza Runner SQL Case Study</h1>
   <p>Exploring Customer Behavior and Menu Insights Using SQL</p>
   <img src="CS1.png" alt="Danny's Diner">
 </div>
