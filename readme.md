@@ -12,3 +12,4 @@ JOIN
 GROUP BY
     Sales.Customer_ID;
 ```
+This query calculates the total amount each customer spent at the restaurant by joining the 'Sales' and 'Menu' tables on the 'Product_ID'. The 'SUM' function aggregates the total sales amount for each customer.
