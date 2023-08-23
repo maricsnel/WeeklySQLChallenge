@@ -1,3 +1,4 @@
+
 ### 1. Total Amount Spent by Each Customer
 
 ```sql
