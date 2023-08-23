@@ -1,0 +1,14 @@
+### 1. Total Amount Spent by Each Customer
+
+```
+sql
+SELECT
+    SUM(menu.Price) AS Total_Sales_Amount,
+    Sales.Customer_ID
+FROM
+    dannys_diner.Sales
+JOIN
+    dannys_diner.Menu ON Sales.Product_ID = Menu.Product_ID
+GROUP BY
+    Sales.Customer_ID;
+```
