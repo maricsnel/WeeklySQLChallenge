@@ -4,7 +4,7 @@
   <img src="CS1.png" alt="Danny's Diner">
 </div>
 
-# Case Study 1: Danny’s Diner
+# Case Study 2: Pizza Runner
 
 ## Introduction
 
