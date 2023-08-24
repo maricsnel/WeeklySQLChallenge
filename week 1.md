@@ -10,7 +10,7 @@
 Welcome to the Danny’s Diner SQL case study! In this project, we'll dive into a series of SQL queries to analyze customer transactions and menu items at Danny’s Diner. Let's explore how SQL can help us answer various questions about customer behavior, popular menu items, and more.
 
 ## Entity Relationship Diagram
-![image](https://github.com/maricsnel/WeeklySQLChallenge/assets/142982185/cf8a079b-6668-4a0b-bca8-cca2439c2ab9)
+![image](https://github.com/maricsnel/WeeklySQLChallenge/assets/142982185/1931adad-c9c0-40c4-be08-a3208edf9468)
 
 
 ## Queries and Explanations
@@ -27,7 +27,12 @@ JOIN
 GROUP BY
     Sales.Customer_ID;
 ```
-This query calculates the total amount each customer spent at the restaurant by joining the Sales and Menu tables on the Product_ID. The ```SUM``` function aggregates the total sales amount for each customer.
+- **Joining Data (`JOIN`):** Combine "Sales" and "Menu" tables using a shared "Product_ID".
+
+- **Summing Prices (`SUM`):** Calculate the total prices of menu items for each customer.
+
+- **Grouping Results (`GROUP BY`):** Organize the data by customer, allowing per-customer calculations.
+
 
 | total_sales_amount | customer_id |
 |-------------------|-------------|
@@ -47,7 +52,9 @@ GROUP BY
     Sales.Customer_ID;
 ```
 
-This query calculates the number of days each customer visited the restaurant by counting the unique ```Order_Date``` entries for each customer.
+- **Grouping Data (`GROUP BY`):** Group results by "Customer_ID".
+
+- **Aggregating Data (`COUNT`):** Count the number of times each customer's "Order_Date" appears, indicating the days they visited.
 
 | customer | days_visited |
 |----------|--------------|
@@ -70,7 +77,15 @@ FROM (
 ) ranked_sales
 WHERE Rank = 1;
 ```
-In summary, this query creates a ranked list of customer purchases based on order dates. It then selects the first purchased item for each customer and presents the results by customer and product name.
+- **Subquery for Ranking (`SELECT`):** Within a subquery, select "Customer_ID" as "Customer", "Product_Name" as "Product", and assign a ranking using the RANK() function.
+
+  - **Ranking by Customer (`RANK()`):** Assign ranks within each customer's partition, based on the order of "Order_Date".
+
+- **Joining Data (`JOIN`):** Join "Sales" and "Menu" tables on matching "Product_ID".
+
+- **Main Query for Filtering (`SELECT`):** In the main query, select "Customer" and "Product" columns from the subquery results.
+
+- **Filtering by Rank (`WHERE`):** Keep only the rows where the rank is 1, indicating the first purchase for each customer.
 
 | customer_id | product_name |
 |-------------|--------------|
@@ -92,7 +107,17 @@ ORDER BY most_purchased DESC
 LIMIT 1;
 ```
 
-This query retrieves the most purchased menu item from the dannys_diner database:
+- **Selecting and Counting (`SELECT`):** Choose "Product_Name" from "Menu" and count occurrences of "Product_ID" from "Sales" as "most_purchased".
+
+- **Joining Data (`JOIN`):** Combine "Sales" and "Menu" tables using matching "Product_ID".
+
+- **Grouping Data (`GROUP BY`):** Group results by "Product_Name".
+
+- **Aggregating Data (`COUNT`):** Count the occurrences of each product in sales.
+
+- **Ordering Results (`ORDER BY`):** Sort the groups by the count of most purchased products in descending order.
+
+- **Limiting Results (`LIMIT`):** Keep only the first result, which will be the most purchased product.
 
 | product_name | most_purchased |
 |--------------|----------------|
@@ -119,7 +144,23 @@ WHERE ranks.rank = 1
 ORDER BY ranks.Customer_ID;
 ```
 
-This query uses a common table expression (CTE) to count the number of times each menu item is purchased by each customer. It then ranks items based on their purchase count and selects the most popular item for each customer.
+- **Common Table Expression (CTE) (`WITH`):** Create a temporary table "product_counts" to store customer-wise product purchase counts.
+
+  - **Counting Products (`SELECT`):** Count occurrences of "Product_ID" for each "Customer_ID".
+
+  - **Grouping Data (`GROUP BY`):** Group results by both "Customer_ID" and "Product_ID".
+
+- **Subquery for Ranking (`SELECT`):** Within a subquery, calculate ranks for each customer based on product counts.
+
+  - **Ranking by Product Count (`RANK()`):** Assign ranks within each customer's partition, ordered by product count in descending order.
+
+- **Joining Data (`JOIN`):** Join "Ranks" subquery with "Menu" table using matching "Product_ID".
+
+- **Main Query for Selecting Columns (`SELECT`):** In the main query, select "Customer_ID", "Product_Name", "product_count", and "rank".
+
+- **Filtering by Rank (`WHERE`):** Keep only the rows where the rank is 1, indicating the most purchased product for each customer.
+
+- **Ordering Results (`ORDER BY`):** Sort results by "Customer_ID".
 
 | customer_id | product_name | product_count | rank |
 |-------------|--------------|---------------|------|
@@ -147,7 +188,19 @@ where "Rank" = 1;
 
 ```
 
-This query identifies the first item purchased by each customer after joining the membership program. It uses a CTE to filter purchases made after the customer's join date.
+- **Common Table Expression (CTE) (`WITH`):** Create a temporary table "First_Boughts" to store the earliest purchases for each customer.
+
+  - **Selecting Columns and Ranking (`SELECT`):** Choose all columns from "Sales", along with "Product_Name".
+  
+    - **Joining Data (`JOIN`):** Combine "Sales" and "Menu" tables using matching "Product_ID".
+  
+    - **Joining with Membership Data (`JOIN`):** Also join with the "Members" table using matching "Customer_ID" and check if the order date is after the member's join date.
+    
+    - **Ranking by Order Date (`RANK()`):** Assign ranks within each customer's partition, ordered by "Order_Date" in ascending order.
+
+- **Main Query for Selecting Columns (`SELECT`):** Select "Customer_ID" and "Product_Name" from the "First_Boughts" CTE.
+
+- **Filtering by Rank (`WHERE`):** Keep only the rows where the rank is 1, indicating the first purchase for each customer.
 
 | customer_id | product_name |
 |-------------|--------------|
@@ -171,7 +224,19 @@ FROM Last_Boughts
 where "Rank" = 1;
 ```
 
-This query identifies the last item purchased by each customer before joining the membership program. It uses a CTE to filter purchases made before the customer's join date.
+- **Common Table Expression (CTE) (`WITH`):** Create a temporary table "Last_Boughts" to store the latest purchases before a customer's membership start.
+
+  - **Selecting Columns and Ranking (`SELECT`):** Choose all columns from "Sales", along with "Product_Name".
+  
+    - **Joining Data (`JOIN`):** Combine "Sales" and "Menu" tables using matching "Product_ID".
+  
+    - **Joining with Membership Data (`JOIN`):** Also join with the "Members" table using matching "Customer_ID" and check if the order date is before the member's join date.
+    
+    - **Ranking by Order Date (`RANK()`):** Assign ranks within each customer's partition, ordered by "Order_Date" in descending order.
+
+- **Main Query for Selecting Columns (`SELECT`):** Select "Customer_ID", "Product_Name", and "Order_Date" from the "Last_Boughts" CTE.
+
+- **Filtering by Rank (`WHERE`):** Keep only the rows where the rank is 1, indicating the last purchase before a customer's membership.
 
 | customer_id | product_name | order_date                |
 |-------------|--------------|---------------------------|
@@ -196,7 +261,20 @@ GROUP BY sales.customer_id
 ORDER BY sales.customer_id;
 ```
 
-This query calculates the total items and amount spent by each member before joining the membership program. It filters sales records before the member's join date and aggregates the data.
+- **Selecting and Counting (`SELECT`):** Choose "customer_id" and count occurrences of "product_id" as "total_items".
+   - Also, calculate the sum of "price" from the "Menu" table as "total_sales".
+
+- **Joining Data (`INNER JOIN`):** Combine "Sales" and "Members" tables using matching "customer_id" where the order date is before the member's join date.
+   - This ensures we consider only purchases made before a customer became a member.
+
+- **Joining Data (`INNER JOIN`):** Join the result of the previous join with the "Menu" table using matching "product_id".
+
+- **Grouping Data (`GROUP BY`):** Group results by "customer_id".
+   - This enables summarizing sales metrics on a per-customer basis.
+
+- **Aggregating Data (`COUNT`, `SUM`):** Count the occurrences of product purchases and calculate the total sales amount for each customer.
+
+- **Ordering Results (`ORDER BY`):** Sort the results by "customer_id".
 
 | customer_id | total_items | total_sales |
 |-------------|-------------|-------------|
@@ -228,9 +306,21 @@ GROUP BY
     Sales.Customer_ID;
 ```
 
-This query calculates the total points for each customer based on their purchases. It uses a CTE to apply point multipliers to different menu items and then sums the points for each customer.Conclusion
+- **Common Table Expression (CTE) (`WITH`):** Create a temporary table "Multiplier" to store product points multipliers.
 
-These SQL queries showcase the power of data analysis in understanding customer behavior and menu preferences at Danny’s Diner. By leveraging SQL, we can unravel insights and make informed decisions for optimizing the restaurant's offerings and customer experience.
+  - **Selecting Columns and Calculating Points (`SELECT`):** Choose "Product_ID" from "Menu" and calculate "Points" based on different multipliers for each product.
+
+    - **Using Conditional Logic (`CASE`):** Apply different multipliers based on the "Product_ID".
+
+- **Selecting and Summing Points (`SELECT`):** Choose "Customer_ID" and sum the calculated "Points" as "Total_Points" for each customer.
+
+- **Joining Data (`JOIN`):** Combine "Sales" and "Multiplier" tables using matching "Product_ID".
+
+- **Grouping Data (`GROUP BY`):** Group results by "Customer_ID".
+
+- **Aggregating Data (`SUM`):** Sum up the calculated "Points" for each customer.
+
+- **Result:** The query produces a result set with columns "Customer_ID" and "Total_Points", representing the total points accumulated by each customer based on their purchases and the respective multipliers.
 
 | customer_id | total_points |
 |-------------|--------------|
@@ -238,8 +328,6 @@ These SQL queries showcase the power of data analysis in understanding customer 
 | C           | 360          |
 | A           | 860          |
 
-
-These SQL queries showcase the power of data analysis in understanding customer behavior and menu preferences at Danny’s Diner. By leveraging SQL, we can unravel insights and make informed decisions for optimizing the restaurant's offerings and customer experience.
 
 ## Conclusions
 
