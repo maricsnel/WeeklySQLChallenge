@@ -9,6 +9,10 @@
 ## Introduction
 Welcome to the Danny’s Diner SQL case study! In this project, we'll dive into a series of SQL queries to analyze customer transactions and menu items at Danny’s Diner. Let's explore how SQL can help us answer various questions about customer behavior, popular menu items, and more.
 
+## Entity Relationship Diagram
+![image](https://github.com/maricsnel/WeeklySQLChallenge/assets/142982185/cf8a079b-6668-4a0b-bca8-cca2439c2ab9)
+
+
 ## Queries and Explanations
 
 ### 1. Total Amount Spent by Each Customer
@@ -236,3 +240,19 @@ These SQL queries showcase the power of data analysis in understanding customer 
 
 
 These SQL queries showcase the power of data analysis in understanding customer behavior and menu preferences at Danny’s Diner. By leveraging SQL, we can unravel insights and make informed decisions for optimizing the restaurant's offerings and customer experience.
+
+## Conclusions
+
+In the realm of Danny’s Diner, our journey through SQL-powered data analysis has uncovered illuminating insights and valuable lessons. We've learned that understanding customer behaviors and menu preferences is pivotal in shaping exceptional dining experiences. These insights offer a roadmap to personalized offerings, increased customer loyalty, and optimized menus.
+
+Our findings illuminate the path to success:
+
+- Customer Understanding: Delving into spending patterns, visit frequency, and menu favorites has provided a nuanced understanding of individual customer preferences.
+
+- Menu Optimization: Identifying popular menu items empowers Danny’s Diner to tailor offerings, ensuring a delightful dining experience for every patron.
+
+- Membership Impact: Analyzing member behavior sheds light on the effectiveness of loyalty programs and their influence on spending patterns.
+
+- Data-Driven Decisions: These queries exemplify the power of data analysis in steering strategic decisions that foster customer satisfaction and loyalty.
+
+As we conclude this case study, remember that behind the numbers lies the ability to shape remarkable dining experiences. Through data-driven insights, Danny’s Diner stands poised to refine its offerings, create loyal patrons, and thrive in the competitive culinary landscape. The journey of Danny’s Diner exemplifies how harnessing the potential of data can revolutionize the world of hospitality.
