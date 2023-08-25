@@ -97,7 +97,9 @@ SELECT Count(Pizza_ID)
 FROM customer_orders_clean;
 ```
 
-This query counts the total number of pizzas ordered.
+- **Counting Records (`SELECT`):** Count the number of occurrences of "Pizza_ID" in the "customer_orders_clean" table.
+
+- **Result:** The query produces a single number representing the count of records where "Pizza_ID" is present in the "customer_orders_clean" table.
 
 | pizzas_ordered |
 | -------------- |
@@ -108,8 +110,9 @@ This query counts the total number of pizzas ordered.
 SELECT Count(Distinct(Order_ID))
 FROM customer_orders_clean;
 ```
+- **Counting Distinct Orders (`SELECT`):** Count the number of distinct occurrences of "Order_ID" in the "customer_orders_clean" table.
 
-This query counts the number of unique customer orders.
+- **Result:** The query produces a single number representing the count of unique orders based on distinct "Order_ID" values in the "customer_orders_clean" table.
 
 | unique_orders |
 | ------------- |
@@ -122,8 +125,13 @@ FROM Runner_Orders_Clean
 WHERE cancellation != 'Restaurant Cancellation' AND cancellation != 'Customer Cancellation'
 GROUP BY runner_id;
 ```
+- **Counting Orders per Runner (`SELECT`):** Count the occurrences of "order_id" for each "runner_id" in the "Runner_Orders_Clean" table.
 
-This query counts the number of successful orders delivered by each runner, excluding canceled orders.
+- **Filtering Data (`WHERE`):** Exclude rows where the "cancellation" is either 'Restaurant Cancellation' or 'Customer Cancellation'.
+
+- **Grouping Data (`GROUP BY`):** Group results by "runner_id".
+
+- **Result:** The query produces a result set with columns: the count of orders ("order_id") and the respective "runner_id". The query calculates the number of orders each runner has that are not canceled by the restaurant or the customer.
 
 | successfull_orders | runner_id |
 | ------------------ | --------- |
@@ -139,8 +147,13 @@ JOIN pizza_runner.pizza_names
 ON customer_orders_clean.pizza_id = pizza_names.pizza_id
 GROUP BY pizza_names;
 ```
+- **Counting Pizza Orders (`SELECT`):** Count the occurrences of "Pizza_ID" for each type of pizza, represented by "pizza_names".
 
-This query counts the number of each type of pizza delivered, joining the order data with the pizza names.
+- **Joining Data (`JOIN`):** Combine "customer_orders_clean" and "pizza_names" tables using matching "Pizza_ID".
+
+- **Grouping Data (`GROUP BY`):** Group results by "pizza_names".
+
+- **Result:** The query produces a result set with columns: the count of orders ("Pizza_ID") for each type of pizza ("pizza_names"). It calculates how many times each pizza has been ordered based on the joined tables.
 
 | count | pizza_names    |
 | ----- | -------------- |
@@ -168,7 +181,16 @@ ORDER BY customer_id, pizza_name;
 | 104         | Meatlovers  | 3     |
 | 105         | Vegetarian  | 1     |
 
-This query counts the number of Vegetarian and Meatlovers pizzas ordered by each customer.
+- **Selecting and Counting (`SELECT`):** Choose "Customer_ID", "Pizza_Name", and count occurrences of "pizza_names.pizza_Name".
+
+- **Joining Data (`JOIN`):** Combine "customer_orders_clean" and "pizza_names" tables using matching "Pizza_ID".
+
+- **Grouping Data (`GROUP BY`):** Group results by both "Customer_ID" and "pizza_name".
+   - This groups orders by customer and the type of pizza they ordered.
+
+- **Ordering Results (`ORDER BY`):** Sort the results first by "customer_id", then by "pizza_name".
+- 
+- **Result:** The query produces a result set with columns: "Customer_ID", "Pizza_Name", and the count of orders for each specific pizza type for each customer. 
 
 ### 6. What was the maximum number of pizzas delivered in a single order?
 ```sql
@@ -179,7 +201,16 @@ ORDER BY TotalPizzas Desc
 LIMIT 1;
 ```
 
-This query finds the order with the maximum number of pizzas delivered.
+- **Selecting and Counting (`SELECT`):** Choose "Order_ID" and count occurrences of "pizza_ID" as "TotalPizzas".
+
+- **Grouping Data (`GROUP BY`):** Group results by "Order_ID".
+
+- **Ordering Results (`ORDER BY`):** Sort the results by "TotalPizzas" in descending order.
+   - This arranges orders based on the total number of pizzas in each order, with the highest count first.
+
+- **Limiting Results (`LIMIT`):** Keep only the first result, which will be the order with the most total pizzas.
+
+- **Result:** The query produces a single result with the "Order_ID" and the total count of pizzas ("TotalPizzas") for the order with the highest number of pizzas.
 
 | order_id | totalpizzas |
 | -------- | ----------- |
@@ -194,7 +225,15 @@ FROM customer_orders_clean
 GROUP BY Customer_ID;
 ```
 
-This query calculates the number of pizzas delivered to each customer with and without changes (exclusions or extras).
+- **Selecting and Counting (`SELECT`):** Choose "Customer_ID" and count occurrences based on conditions using the COUNT function.
+
+- **Counting No Change Pizzas (`CASE`):** Count occurrences when both "Exclusions" and "Extras" columns are empty.
+    
+- **Counting Change Pizzas (`CASE`):** Count occurrences when both "Exclusions" and "Extras" columns have values.
+
+- **Grouping Data (`GROUP BY`):** Group results by "Customer_ID".
+
+- **Result:** The query produces a result set with columns: "Customer_ID", "No_Change_Pizzas" (count of orders with no changes to pizza), and "Change_Pizzas" (count of orders with changes to pizza). 
 
 | customer_id | no_change_pizzas | change_pizzas |
 | ----------- | ---------------- | ------------- |
@@ -210,7 +249,11 @@ SELECT COUNT(CASE WHEN "Exclusions" != '' AND "Extras" != '' THEN 1 END) AS Chan
 FROM customer_orders_clean;
 ```
 
-This query counts the number of pizzas with both exclusions and extras.
+- **Selecting and Counting (`SELECT`):** Count occurrences based on a condition using the COUNT function.
+
+- **Counting Change Pizzas (`CASE`):** Count occurrences when both "Exclusions" and "Extras" columns have values.
+
+- **Result:** The query produces a single result with the count of orders ("Change_Pizzas") where both "Exclusions" and "Extras" columns have values. 
 
 | change_pizzas |
 | ------------- |
@@ -224,8 +267,13 @@ GROUP BY hour_of_day
 ORDER BY hour_of_day ASC;
 ```
 
-This query calculates the total number of pizzas ordered for each hour of the day.
+- **Extracting Hour and Counting (`SELECT`):** Extract the hour from "order_time" and count occurrences of "Pizza_ID".
 
+- **Grouping Data (`GROUP BY`):** Group results by the extracted hour of the day.
+
+- **Ordering Results (`ORDER BY`):** Sort the results by the hour of the day in ascending order.
+
+- **Result:** The query produces a result set with columns: "hour_of_day" (the extracted hour from "order_time") and the count of pizza orders ("Pizza_ID") placed during each hour of the day. 
 | hour_of_day | count |
 | ----------- | ----- |
 | 11          | 1     |
@@ -243,8 +291,13 @@ GROUP BY day_of_week
 ORDER BY day_of_week;
 ```
 
-This query calculates the volume of orders for each day of the week.
+- **Formatting Day of the Week and Counting (`SELECT`):** Format "order_time" as the day of the week and count occurrences of "Pizza_ID".
 
+- **Grouping Data (`GROUP BY`):** Group results by the formatted day of the week.
+
+- **Ordering Results (`ORDER BY`):** Sort the results by the formatted day of the week in alphabetical order.
+
+- **Result:** The query produces a result set with columns: "day_of_week" (the day of the week extracted from "order_time") and the count of pizza orders ("Pizza_ID") placed on each day of the week. 
 | day_of_week | count |
 | ----------- | ----- |
 | Friday      | 1     |
@@ -260,9 +313,32 @@ WHERE pickup_time &lt;&gt; '' AND pickup_time IS NOT NULL
 GROUP BY Week
 ORDER BY Week;
 ```
-This query counts the number of runners who signed up for each 1-week period, filtering out null pickup times.
+- **Extracting Week and Counting (`SELECT`):** Extract the week number from "pickup_time" and count occurrences of "runner_ID".
+
+- **Filtering Data (`WHERE`):** Exclude rows where "pickup_time" is empty or NULL.
+
+- **Grouping Data (`GROUP BY`):** Group results by the extracted week number.
+
+- **Ordering Results (`ORDER BY`):** Sort the results by the week number in ascending order.
 
 | week | count |
 | ---- | ----- |
 | 1    | 4     |
 | 2    | 4     |
+
+# Pizza Runner SQL Case Study
+
+## Key Findings and Conclusions
+
+Upon delving into the analysis of Pizza Runner's customer orders and runner activities, several significant insights have surfaced:
+
+1. **Pizza Preferences:** The analysis of pizza types revealed that "Meatlovers" is the most favored choice among customers, closely followed by "Vegetarian." This information can guide Pizza Runner in optimizing their ingredient inventory and introducing new specials based on customer preferences.
+
+2. **Runner Performance:** By examining successful deliveries by each runner, it became evident that some runners have consistently higher successful delivery rates than others. This insight enables Pizza Runner to recognize and reward top-performing runners, ultimately enhancing overall service quality.
+
+3. **Peak Order Hours:** Through the analysis of order timestamps, it was found that peak order hours are during the evening, particularly around 6:00 PM to 8:00 PM. Pizza Runner can utilize this information to allocate additional resources during peak hours and minimize customer wait times.
+
+4. **Weekly Trends:** The study of weekly runner sign-up trends highlighted that sign-ups remain steady, with four runners joining each week. This consistent trend aids Pizza Runner in forecasting staffing needs accurately and maintaining a balanced runner workforce.
+
+In conclusion, these insights empower Pizza Runner to make data-driven decisions that positively impact their business operations. By tailoring their offerings based on popular pizza choices, recognizing and incentivizing efficient runners, and optimizing service during peak hours, Pizza Runner can elevate customer satisfaction, increase efficiency, and ensure a seamless delivery experience.
+
