@@ -1,11 +1,20 @@
 <div align="center">
-  <h1>Foodie FI SQL Case Study</h1>
-  <img src="CS1.png" alt="Danny's Diner">
+  <h1> Case Study 3: Foodie FI </h1>
 </div>
 
-# Case Study 2: Foodie FI
+![image](https://github.com/maricsnel/WeeklySQLChallenge/assets/142982185/eacb01c8-b3e0-4501-aa14-a1a202d96929)
+
+
 
 ## Introduction
+
+In the realm of subscription-based culinary platforms, Foodie-Fi stands as a prime example. This case study delves into Foodie-Fi's customer engagement dynamics, subscription plan preferences, and retention strategies. By analyzing key data points, we uncover valuable insights that can guide strategic decisions to enhance customer experiences and drive business growth.
+
+## Entity Relationship Diagram
+
+![image](https://github.com/maricsnel/WeeklySQLChallenge/assets/142982185/e1c4c40e-86b1-472d-bd33-c9ffa18136ca)
+
+
 ## Based off the 8 sample customers provided in the sample from the subscriptions table, write a brief description about 3 customers onboarding journey.
 ```sql
 SELECT Customer_ID, start_date, plan_name 
@@ -30,11 +39,11 @@ Customer 11:Started with a trial on 2020-11-19.Churned on 2020-11-26, but the pl
 SELECT COUNT(DISTINCT Customer_ID)
 FROM foodie_fi.subscriptions;
 ```
-
-This query counts the number of distinct customer IDs in the subscriptions table, which gives the total number of customers Foodie-Fi has ever had.
+- The `COUNT(DISTINCT Customer_ID)` function calculates the number of unique customer IDs in the "subscriptions" table.
+  
 | count    |
 |----------|
-| 1000                 |
+| 1000    |
 
 ### 2. What is the monthly distribution of trial plan start_date values for our dataset?
 ```sql
@@ -45,7 +54,13 @@ GROUP BY month
 ORDER BY month;
 ```
 
-This query groups the trial plan start dates by month and counts the number of trial plans started in each month. It helps visualize the distribution of trial plan sign-ups over time.
+- The `DATE_TRUNC('MONTH', subscriptions.Start_date)` function is used to truncate the dates in the "Start_date" column to the beginning of their respective months. This creates a new column labeled as "month" in the output.
+
+- The `COUNT(subscriptions.Plan_ID)` function calculates the count of rows where the "Plan_ID" column has a value.
+  
+- The `WHERE` clause filters the rows to only include those where the "Plan_ID" is 0.
+
+
 | month                        | count |
 |------------------------------|-------|
 | 2020-01-01T00:00:00.000Z      | 88    |
@@ -69,7 +84,10 @@ GROUP BY plan_id
 ORDER BY plan_id;
 ```
 
-This query identifies plans that were started after the year 2020 and provides a breakdown of how many plans of each type were started in that period.
+- The `COUNT(Plan_id)` function calculates the count of occurrences of each unique plan ID.
+
+- The `WHERE start_date > '2020-12-31'` clause filters the data to include only rows where the "start_date" is after December 31, 2020.
+
 | month                        | count |
 |------------------------------|-------|
 | 2020-01-01T00:00:00.000Z      | 88    |
@@ -93,7 +111,12 @@ FROM foodie_fi.subscriptions
 WHERE plan_id = 4;
 ```
 
-This query calculates the number and percentage of customers who have churned (subscribed to plan_id 4), providing insights into the customer retention rate.
+- The `COUNT(DISTINCT Customer_ID)` function calculates the count of unique customer IDs in the "subscriptions" table for customers who have churned (plan_id = 4).
+
+- Inside the `ROUND` function, the division calculation `(COUNT(DISTINCT Customer_ID)::numeric / (SELECT COUNT(DISTINCT Customer_ID) FROM Foodie_fi.subscriptions) * 100)` calculates the percentage of churned customers out of the total distinct customer count.
+  
+- The `WHERE plan_id = 4` clause filters the data to include only rows where the "plan_id" is 4, representing churned customers.
+
 | churnedcustomers | percentage    |
 | 307             | 30.7          |
 
@@ -110,11 +133,18 @@ SELECT
 FROM CTE
 WHERE plan_id = 0 AND nextsubscription = 4;
 ```
+- A Common Table Expression (CTE) named `CTE` is defined to enrich the "subscriptions" data with an additional column named "NextSubscription". The 'LEAD' is used to find out the next subscription.
+
+- Inside the main `SELECT`:
+  - The calculation `ROUND(COUNT(plan_id)::float / (SELECT COUNT(DISTINCT Customer_ID) FROM Foodie_fi.subscriptions) * 100)` calculates the percentage of customers who churned after a trial period. The percentage is rounded to the nearest whole number.
+  - The calculation `COUNT(plan_id)` calculates the count of customers who churned after a trial period.
+
+- The `WHERE plan_id = 0 AND nextsubscription = 4` clause filters the data to include only rows where the initial plan was 0 (trial period) and the subsequent subscription was 4 (indicating churn).
+
+
 | PercentageChurnAfterTrial   | ChurnAfterTrial  |
 |-----------------------------|------------------|
 | 9                           | 92               |
-
-This query calculates the percentage and count of customers who have churned after their initial free trial period. It uses a common table expression (CTE) to identify the next subscription plan for each customer and then calculates the churn rate for those who moved from trial to churn.
 
 ### 6. What is the number and percentage of customer plans after their initial free trial?
 ```sql
@@ -132,7 +162,16 @@ WHERE Row = 2
 GROUP BY Plan_ID;
 ```
 
-This query calculates the number and percentage of customers who subscribed to different plans immediately after their initial free trial. It uses a CTE to assign row numbers based on the start date for each customer, helping to identify the second subscription (after the trial) and then calculates the distribution of plans.
+- A Common Table Expression (CTE) named `CTE` is defined to assign a row number to each subscription record for every customer. The `ROW_NUMBER()` function is used with the `PARTITION BY Customer_Id` to number rows for each customer separately, and `ORDER BY Start_Date ASC` to order them by start date in ascending order.
+
+- Inside the main `SELECT`:
+  - The `Plan_Id` column is selected, representing the plan ID of each subscription.
+  - The calculation `COUNT(Plan_ID)` counts the number of subscriptions for each unique plan ID.
+  - The calculation `COUNT(Plan_ID)::float / (SELECT COUNT(DISTINCT Customer_ID) FROM Foodie_fi.subscriptions) * 100` calculates the percentage of subscriptions for each plan relative to the total distinct customer count.
+  - 
+- The `WHERE Row = 2` clause filters the data to include only the second subscription for each customer.
+
+
 | plan_id               | count | PercentagePerPlan|
 |-----------------------|-------|------------------|
 | 1                     | 546   | 54.60            |
@@ -156,8 +195,17 @@ FROM CTE
 WHERE Row = 1
 GROUP BY Plan_ID;
 ```
+- A Common Table Expression (CTE) named `CTE` is defined to assign a row number to each subscription record for every customer. The `ROW_NUMBER()` function is used with the `PARTITION BY Customer_Id` to number rows for each customer separately, and `ORDER BY Start_Date DESC` to order them by start date in descending order.
 
-This query calculates the customer count and percentage breakdown of all plan_name values at the end of the year 2020. It uses a CTE to filter subscriptions before January 1, 2021, and then groups and calculates the distribution of plans based on the latest subscription for each customer.
+- The `WHERE start_date < DATE '2021-01-01'` clause filters the data to include only subscription records with start dates before January 1, 2021.
+
+- Inside the main `SELECT`:
+  - The calculation `COUNT(Plan_ID)` counts the number of subscriptions for each unique plan ID.
+  - The calculation `COUNT(Plan_ID)::float / (SELECT COUNT(DISTINCT Customer_ID) FROM CTE) * 100` calculates the percentage of subscriptions for each plan relative to the total distinct customer count from the filtered CTE. 
+
+- The `WHERE Row = 1` clause filters the data to include only the most recent subscription for each customer.
+
+
 | plan_id               | count | Percentage_Per_Plan |
 |-----------------------|-------|-------------------|
 | 0                     | 19    | 1.90              |
@@ -174,7 +222,12 @@ FROM foodie_FI.subscriptions
 WHERE plan_id = 3 AND start_date BETWEEN DATE '2020-01-01' AND DATE '2020-12-31';
 ```
 
-This query calculates the number of customers who upgraded to an annual plan in the year 2020. It specifically counts subscriptions with plan_id 3 (annual plan) and falling within the specified date range.
+- The calculation `COUNT(plan_id)` counts the number of subscription records.
+
+- The `WHERE plan_id = 3` clause filters the data to include only subscription records with a plan ID of 3.
+
+- The `start_date BETWEEN DATE '2020-01-01' AND DATE '2020-12-31'` clause further filters the data to include only subscription records with start dates within the range of January 1, 2020, to December 31, 2020.
+
 | UpgradeAnnual |
 |------------|
 | 195   |
@@ -195,7 +248,22 @@ FROM Join_Date
 JOIN Upgrade ON Join_Date.Customer_ID = Upgrade.Customer_ID;
 ```
 
-This query calculates the average number of days it takes for a customer to upgrade to an annual plan from the day they join Foodie-Fi. It uses two CTEs to first find the join date and upgrade date for each customer, and then calculates the average difference in days.
+- Two Common Table Expressions (CTEs) named `Join_Date` and `Upgrade` are defined to organize the data for analysis.
+
+- In the `Join_Date` CTE:
+  - The `MIN(Start_Date)` function calculates the earliest subscription start date for each customer.
+  - This CTE compiles a list of customers along with their corresponding earliest subscription start date (the date they joined).
+
+- In the `Upgrade` CTE:
+  - The `Start_Date` column is selected as "Upgrade" for each subscription record with a plan ID of 3.
+  - This CTE compiles a list of customers who performed an upgrade to plan ID 3 along with the respective upgrade date.
+
+- The calculation `(upgrade.upgrade::date - join_date.joined::date)::integer` computes the difference in days between the upgrade date and join date for each customer.
+
+- The `JOIN Upgrade ON Join_Date.Customer_ID = Upgrade.Customer_ID` clause joins the data with the `Upgrade` CTE based on matching customer IDs.
+
+- The calculation `AVG(...)` calculates the average of the computed differences in days for all customers who upgraded to plan ID 3.
+
 
 | average_upgrade_days |
 |-------------------|
@@ -232,7 +300,20 @@ from Join_Date
 Join Upgrade ON Join_Date.Customer_ID = Upgrade.Customer_ID
 Group by Period;
 ```
-This query analyzes customer subscription upgrades by categorizing the time between their subscription start date and upgrade date into specific periods (e.g., '0-30 days', '31-60 days'). It then counts the number of customers in each period who upgraded their plans. This provides insights into how quickly customers upgrade after joining.
+
+- Two Common Table Expressions (CTEs) named `Join_Date` and `Upgrade` are defined to organize the data for analysis.
+
+- In the `Join_Date` CTE:
+  - This CTE compiles a list of customers along with their corresponding earliest subscription start date (the date they joined).
+
+- In the `Upgrade` CTE:
+  - This CTE compiles a list of customers who performed an upgrade to plan ID 3 along with the respective upgrade date.
+
+- For each customer's upgrade, the conditions within the `CASE` expression determine which period category the upgrade falls into (e.g., '0-30 days', '31-60 days', and so on).
+
+- The `Count (Join_Date.Customer_ID)` calculates the number of customers who fall into each period category.
+
+- The `JOIN Upgrade ON Join_Date.Customer_ID = Upgrade.Customer_ID` clause joins the data with the `Upgrade` CTE based on matching customer IDs.
 
 | period            | count |
 |-------------------|-------|
@@ -261,7 +342,29 @@ Select Count(Customer_Id)
 From CTE
 Where plan_ID = 2 and nextsubscription = 1
 ```
-In summary, the query counts the number of customers who had a subscription plan of 2 and followed it with a subscription plan of 1, considering only subscriptions that started before January 1, 2021. This helps analyze how many customers switched from plan 2 to plan 1 within a specified time frame.
+
+- A Common Table Expression (CTE) named `CTE` is defined to enrich the "subscriptions" data with an additional column named "NextSubscription." This column holds the value of the "plan_id" for the subsequent subscription of the same customer using the `LEAD` window function. The `PARTITION BY Customer_ID` ensures that the function operates on each customer's data.
+
+- The `WHERE start_date < date '2021-01-01'` clause filters the data to include only subscription records with start dates before January 1, 2021.
+
+- Inside the main `SELECT`:
+  - The `Count(Customer_Id)` function calculates the number of customers who match the specified conditions.
+  
+- The `WHERE plan_ID = 2 and nextsubscription = 1` clause filters the data to include only rows where the initial plan was 2 and the subsequent subscription was 1.
+
 | count |
 |-------|
 | 0     |
+
+
+## Key Findings and conclusion
+
+1. **Popular Plans**: The "basic monthly" plan is the preferred choice for most customers, followed by the "pro monthly" plan. This indicates a demand for flexibility in commitment. Offering more diverse plans or personalized add-ons can cater to different customer preferences.
+
+2. **Annual Commitments**: A significant percentage (19.5%) upgraded to annual plans. Capitalize on this interest by introducing more annual subscription benefits such as exclusive content, discounts, or early access, enticing more customers to commit for longer periods.
+   
+3. **Upgrade Timing**: The faster upgrade pattern within the initial 30 days suggests that customers are eager to explore and invest in the platform early on. Enhance the onboarding experience, provide clear plan differentiators, and highlight success stories during this crucial period to encourage swift upgrades.
+
+In this Foodie-Fi case exploration, we've unearthed vital insights from customer onboarding and subscription data. The findings emphasize the significance of timely conversions after trials, the popularity of flexible plans, and the allure of longer commitments. By leveraging these insights, Foodie-Fi can refine its strategies, tailor plans, and elevate user experiences to foster sustained growth and customer satisfaction.
+
+
