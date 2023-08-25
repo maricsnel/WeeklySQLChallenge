@@ -326,7 +326,6 @@ ORDER BY Week;
 | 1    | 4     |
 | 2    | 4     |
 
-# Pizza Runner SQL Case Study
 
 ## Key Findings and Conclusions
 
