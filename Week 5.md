@@ -1,12 +1,16 @@
 <div align="center">
-  <h1>Danny’s Diner SQL Case Study</h1>
-  <p>Exploring Customer Behavior and Menu Insights Using SQL</p>
-  <img src="CS1.png" alt="Danny's Diner">
+  <h1>Case Study 5: Data Mart</h1>
 </div>
 
-# Case Study 1: Danny’s Diner
+![image](https://github.com/maricsnel/WeeklySQLChallenge/assets/142982185/ac536ac6-b8fe-4f41-8fc1-2fa5d781b408)
 
 ## Introduction
+
+In the realm of retail analytics, we embark on an insightful journey through a comprehensive dataset capturing weekly sales dynamics. The dataset has undergone meticulous data cleansing, laying the foundation for meaningful exploration. Harnessing the power of SQL queries, we unravel pivotal patterns within this retail landscape, encompassing factors such as weekly day trends, crucial missing data points, yearly transaction trends, platform-driven sales, and the influential role of demographics. Notably, we delve into a specific juncture in time to gauge the impact on sales, shedding light on both quantitative growth or decline and the corresponding percentage shifts. This investigation offers a strategic lens into the retail sector's nuances and evolution.
+
+## Entity Relationship Diagram
+
+![image](https://github.com/maricsnel/WeeklySQLChallenge/assets/142982185/65fc2440-6565-4d1a-8bf5-acca71edb81b)
 
 ## 1. Data Cleansing Steps
 ```sql
@@ -340,3 +344,16 @@ FROM before_after_sales;
 |--------------|-------------------|
 | -26884188    | -1.15             |
 
+## Suggestions and Conclusion
+1. **Data Enrichment**: Address the missing data gaps in weeks 1 to 12 and 37 to 52 by implementing more robust data collection processes. A comprehensive dataset will provide a clearer view of sales trends throughout the entire year.
+   
+2. **Day-Specific Strategies**: Given the consistent Monday sales trend, consider tailoring marketing and promotional efforts to capitalize on this day's higher customer engagement.
+   
+3. **Platform Analysis**: Investigate the reasons behind the decline in Shopify sales after the identified date. This could involve assessing changes in user experience, marketing initiatives, or competitor activities on that platform.
+   
+4. **Demographic Insights**: With the "Unknown" demographic group being a significant driver of sales, delve deeper into customer profiles within this category. Conduct surveys or data analytics to understand the characteristics and preferences of this group.
+   
+5. **Segmented Marketing**: Leverage demographic insights to create targeted marketing campaigns. Tailor messaging and offers to appeal to specific age bands and demographics, potentially boosting sales among previously untapped segments.
+   
+
+In this exploration of retail data, we've uncovered valuable insights that can drive strategic decisions. By addressing data gaps, tailoring strategies to day-of-week trends, and delving into demographics and platforms, opportunities for growth and optimization emerge. As the retail landscape continues to evolve, leveraging these findings can pave the way for enhanced customer engagement, strategic planning, and sustainable success.
