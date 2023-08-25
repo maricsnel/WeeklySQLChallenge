@@ -189,7 +189,7 @@ ORDER BY customer_id, pizza_name;
    - This groups orders by customer and the type of pizza they ordered.
 
 - **Ordering Results (`ORDER BY`):** Sort the results first by "customer_id", then by "pizza_name".
-- 
+  
 - **Result:** The query produces a result set with columns: "Customer_ID", "Pizza_Name", and the count of orders for each specific pizza type for each customer. 
 
 ### 6. What was the maximum number of pizzas delivered in a single order?
