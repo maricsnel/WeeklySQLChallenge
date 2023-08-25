@@ -1,11 +1,17 @@
 <div align="center">
   <h1>Pizza Runner SQL Case Study</h1>
-  <img src="CS1.png" alt="Danny's Diner">
 </div>
+
+![image](https://github.com/maricsnel/WeeklySQLChallenge/assets/142982185/26c26776-e700-484a-9446-3551efa73ed3)
 
 # Case Study 2: Pizza Runner
 
 ## Introduction
+
+The "Pizza Runner" case study involves analyzing data from a pizza delivery service to gain insights into customer orders and runner activities. The dataset contains information on customer orders and runner deliveries. To facilitate the analysis, a thorough data cleanup process is conducted, addressing missing or incomplete values in the dataset. The case study explores various queries to extract valuable information, including the total number of pizzas ordered, unique customer orders, successful deliveries by each runner, pizza type distribution, and more. Through this analysis, the case study aims to provide a comprehensive understanding of the pizza delivery operations and customer preferences.
+
+## Entity Relationship Diagram
+![image](https://github.com/maricsnel/WeeklySQLChallenge/assets/142982185/0728625b-7f4b-4dd3-b891-23beb7d84ace)
 
 ## Data Cleanup Process
 ```sql
