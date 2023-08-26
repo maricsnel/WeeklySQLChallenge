@@ -8,7 +8,7 @@ Welcome to my GitHub repository where I take you on a journey through Danny Ma's
 
 ## Table of Contents
 
-1. [Week 1: Data Exploration]((https://github.com/maricsnel/WeeklySQLChallenge/blob/WeeklySQLChallenge/Case%20Study%201:%20Danny's%20Diner.md))
+1. [Week 1: Data Exploration](https://github.com/maricsnel/WeeklySQLChallenge/blob/WeeklySQLChallenge/Case%20Study%201:%20Danny's%20Diner.md)
 2. [Week 2: Finding the Missing Data](#week-2-finding-the-missing-data)
 3. [Week 3: Dealing with Duplicates](#week-3-dealing-with-duplicates)
 4. [Week 4: Working with Dates](#week-4-working-with-dates)
