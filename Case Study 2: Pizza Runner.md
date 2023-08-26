@@ -4,7 +4,7 @@
 
 ![image](https://github.com/maricsnel/WeeklySQLChallenge/assets/142982185/26c26776-e700-484a-9446-3551efa73ed3)
 
-# Case Study 2: Pizza Runner
+# 
 
 ## Introduction
 
