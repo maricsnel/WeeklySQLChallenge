@@ -1,10 +1,8 @@
 <div align="center">
-  <h1>Danny’s Diner SQL Case Study</h1>
-  <p>Exploring Customer Behavior and Menu Insights Using SQL</p>
-  <img src="CS1.png" alt="Danny's Diner">
+  <h1>Case Study 6 - Clique Bait</h1>
 </div>
 
-# Case Study 1: Danny’s Diner
+![image](https://github.com/maricsnel/WeeklySQLChallenge/assets/142982185/cf73b143-5f37-4c50-9218-b5a05c8e22e0)
 
 ## Introduction
 
@@ -16,8 +14,8 @@
 SELECT Count(Distinct User_ID) as Unique_Users 
 FROM clique_bait.users;
 ```
+- The `Count(Distinct User_ID)` function calculates the number of unique user IDs in the "users" table.
 
-This query calculates the count of distinct user IDs in the "users" dataset, providing the number of unique users.
 | Unique Users |
 |--------------|
 | 500          |
@@ -28,7 +26,12 @@ SELECT Count(Cookie_ID)/Count(Distinct User_ID) as AVG_Cookies_Per_User
 FROM clique_bait.users;
 ```
 
-This query calculates the average number of cookies per user by dividing the total count of cookies by the count of distinct user IDs in the "users" dataset.
+- The `Count(Cookie_ID)` function calculates the total number of cookie IDs in the "users" table.
+
+- The `Count(Distinct User_ID)` function calculates the count of distinct user IDs in the "users" table.
+
+- The division `/` operator divides the count of cookie IDs by the count of distinct user IDs.
+
 | AVG Cookies Per User |
 |----------------------|
 | 3                    |
@@ -39,8 +42,12 @@ SELECT Extract(month from Event_time) as Months, Count(Distinct Visit_ID) as Uni
 FROM clique_bait.events
 GROUP BY Months;
 ```
+- The `Extract(month from Event_time)` function extracts the month component from the "Event_time" column.
 
-This query groups the events by month, extracting the month from the event time. It then counts the distinct visit IDs for each month, giving the unique number of visits by all users per month.
+- The `Count(Distinct Visit_ID)` function calculates the count of unique "Visit_ID" values for each month.
+
+- The `GROUP BY Months` clause groups the results by the "Months" column, which represents the extracted month component.
+
 | Months | Unique Visits |
 |--------|---------------|
 | 1      | 876           |
@@ -57,8 +64,12 @@ JOIN clique_bait.event_identifier
 ON events.event_type = event_identifier.event_type 
 GROUP BY Event_name;
 ```
+- The `Count(Visit_ID)` function calculates the count of "Visit_ID" values for each event.
 
-This query joins the "events" dataset with the "event_identifier" dataset based on the event type. It then counts the number of events (visits) for each event name and groups the results accordingly.
+- The query performs an inner join between the "events" table and the "event_identifier" table based on matching "event_type" values.
+
+- The `GROUP BY Event_name` clause groups the results by the "Event_name" column, which represents the name of the event.
+
 | Event Name     | Visits |
 |----------------|--------|
 | Purchase       | 1777   |
@@ -85,8 +96,19 @@ From CTE
 Cross Join CTE2
 Where event_name = 'Purchase';
 ```
+- CTE :
+  - This CTE calculates the total number of distinct "Visit_ID" values, representing total visits, from the "events" table.
 
-This query calculates the percentage of visits that have a "Purchase" event. It uses Common Table Expressions (CTEs) to first calculate the total number of visits and the number of visits for each event type. Then, it divides the "Purchase" event visits by the total visits and presents the result as a percentage.
+- CTE2:
+  - This CTE calculates the count of distinct "Visit_ID" values for each event, based on the "Event_name".
+  - It performs an inner join between the "events" table and the "event_identifier" table based on matching "event_type" values.
+  - The results are grouped by "Event_name".
+
+- The main query:
+  - This query calculates the percentage of visits for a specific event type ("Purchase").
+  - It performs a cross join between the two CTEs to combine their results.
+  - The percentage is calculated by dividing the count of distinct visits for the "Purchase" event by the total number of distinct visits.
+
 | Percentage |
 |------------|
 | 49.86      |
@@ -104,19 +126,35 @@ WITH CTE as(
 Totalviews as (
 Select Count (Visit_Id) as Checkout_Page_Views
 from CTE
-Where checkout_page &gt; 0),
+Where checkout_page > 0),
 
 No_Purchase as(
   Select Count (Visit_Id) as No_Purchases
 from CTE
-Where checkout_page &gt; 0 and purchase = 0)
+Where checkout_page > 0 and purchase = 0)
 
 Select Round(No_Purchases::numeric/Checkout_Page_Views::numeric*100, 2) as Percentage_No_Purchase
 From Totalviews
 Cross Join No_Purchase;
 ```
+- "CTE":
+  - This CTE aggregates data for each "visit_id", counting occurrences of certain event types and page IDs.
+  - The `CASE` statements are used to selectively count events based on conditions.
+  - "Checkout_Page" is calculated as the sum of events with event_type 1 and page_id 12.
+  - "Purchase" is calculated as the sum of events with event_type 3.
 
-This query calculates the percentage of visits that view the checkout page but do not have a purchase event. It first calculates the number of checkout page views and the number of visits without purchases using CTEs. Then, it calculates and presents the percentage of visits without purchases out of the total checkout page views.
+- "Totalviews":
+  - This CTE counts the total number of checkout page views from the "CTE" (Calculated in the previous CTE).
+  - It filters rows from the CTE where the "checkout_page" count is greater than 0.
+
+- "No_Purchase":
+  - This CTE counts the number of visits where there was a checkout page view (checkout_page count > 0) but no purchase (purchase count = 0).
+
+- The main query:
+  - This query calculates the percentage of visits without a purchase relative to the total number of checkout page views.
+  - It performs a cross join between the "Totalviews" and "No_Purchase" CTEs.
+  - The percentage is calculated by dividing the count of visits without a purchase by the total number of checkout page views.
+    
 | Percentage No Purchase |
 |------------------------|
 | 15.50                  |
@@ -134,7 +172,16 @@ ORDER BY Views Desc
 LIMIT 3;
 ```
 
-This query identifies the top 3 pages with the highest number of views. It joins the "page_hierarchy" dataset with the "events" dataset based on page IDs and filters for event type 1 (page view). The results are grouped by page name, ordered by views in descending order, and limited to the top 3.
+- The `SELECT` clause includes two columns: "page_name" and the count of "visit_id" values.
+
+- The `FROM` clause specifies the two tables to be used: "page_hierarchy" and "events".
+
+- The `WHERE` clause filters the results to only include rows where the "event_type" is 1 (indicating a view event).
+
+- The `GROUP BY page_name` groups the results by unique "page_name" values.
+- 
+- The `LIMIT 3` clause restricts the output to the top three most viewed pages.
+  
 | Page Name     | Views |
 |---------------|-------|
 | All Products  | 3174  |
@@ -164,11 +211,23 @@ FROM AllViews
 FULL JOIN Cart
 ON cart.product_category = allviews.product_category;
 ```
+- CTE "AllViews":
+  - This CTE calculates the count of page views for each "Product_Category".
+  - The `WHERE` clause filters rows where the "event_type" is 1 (indicating a view event).
+  - The results are grouped by "Product_Category".
+
+- CTE "Cart":
+  - This CTE calculates the count of cart additions for each "Product_Category".
+  - The `WHERE` clause filters rows where the "event_type" is 2 (indicating a cart addition event).
+  - The results are grouped by "Product_Category".
+
+- The main query:
+  - This query retrieves the "Product_Category", page views ("page_view"), and cart additions ("cart_adds") from the two CTEs.
+  - It performs a FULL JOIN between the "AllViews" and "Cart" CTEs based on matching "product_category" values.
+
 | Product Category | Page Views | Cart Adds |
 |------------------|------------|-----------|
 | null             | 7059       | null      |
 | Luxury           | 3032       | 1870      |
 | Shellfish        | 6204       | 3792      |
 | Fish             | 4633       | 2789      |
-
-This query provides the number of views and cart additions for each product category. It calculates the page views and cart adds separately using CTEs. Then, it combines the results using a full join on the product category, ensuring that all categories are included in the output.
