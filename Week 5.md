@@ -49,8 +49,8 @@ This query creates a temporary table ```Weekly_Sales_Clean``` by selecting and t
 SELECT DISTINCT(To_Char("week_date", 'DAY')) as Day_Of_Week
 FROM Weekly_Sales_Clean;
 ```
+- The `To_Char("week_date", 'DAY')` function converts the "week_date" values into a representation of the day of the week.
 
-This query retrieves the distinct days of the week corresponding to each ```week_date``` value in the ```Weekly_Sales_Clean``` table.
 | day_of_week |
 |---------|
 | MONDAY  |
@@ -67,8 +67,15 @@ LEFT JOIN Weekly_Sales_Clean wsc ON awn.week_number = EXTRACT('week' FROM wsc.we
 WHERE wsc.week_number IS NULL
 ORDER BY awn.week_number;
 ```
+- CTE "AllWeekNumbers":
+  - This CTE generates a series of week numbers ranging from 1 to 52 using the `generate_series` function.
+    
+- The main query:
+  - This query selects the week numbers that are missing data in the "Weekly_Sales_Clean" table.
+  - The join condition is based on matching the week number from the CTE with the week number extracted from the "week_date" column using `EXTRACT('week' FROM wsc.week_date)`.
+  - The `WHERE wsc.week_number IS NULL` condition filters the results to include only rows where there's no match (i.e., no data) from the "Weekly_Sales_Clean" table.
+  - The result set will contain the week numbers for which there are no corresponding records in the "Weekly_Sales_Clean" table.
 
-This query identifies the missing week numbers within the range 1 to 52 by generating all week numbers and left joining them with the actual data. It then retrieves the week numbers that are missing from the ```Weekly_Sales_Clean``` table.
 | week_number |
 |-------------|
 | 1           |
@@ -108,7 +115,9 @@ GROUP BY calendar_year
 ORDER BY calendar_year;
 ```
 
-This query calculates the total number of transactions for each calendar year in the dataset by grouping the data based on the ```calendar_year``` column.
+- The `COUNT(Transactions)` function calculates the number of transactions for each calendar year.
+
+- The `GROUP BY calendar_year` clause groups the results by unique calendar years.
 
 | calendar_year | count |
 |---------------|-------|
@@ -124,7 +133,10 @@ GROUP BY Region, Month_number
 ORDER BY Region, Month_number;
 ```
 
-This query computes the total sales for each region and month by grouping the data based on ```Region``` and ```Month_number``` columns.
+- The `SUM(Sales)` function calculates the total sales for each unique combination of "Region" and "Month_number".
+
+- The `GROUP BY Region, Month_number` clause groups the results by unique combinations of "Region" and "Month_number". 
+
 | region       | month_number | total_sales  |
 |--------------|--------------|--------------|
 | AFRICA       | 3            | 567767480    |
@@ -183,7 +195,10 @@ FROM Weekly_Sales_Clean
 GROUP BY platform;
 ```
 
-Explanation: This query calculates the total count of transactions for each platform by grouping the data based on the ```platform``` column.
+- The `COUNT(Transactions)` function calculates the total number of transactions for each unique value in the "platform" column.
+
+- The `GROUP BY platform` clause groups the results by unique values in the "platform" column. 
+
 | platform | total_transactions |
 |----------|--------------------|
 | Shopify  | 8549               |
@@ -217,8 +232,19 @@ FROM CTE
 JOIN CTE2 ON cte.month_number = cte2.month_number AND cte.calendar_year = cte2.calendar_year
 ORDER BY calendar_year, month_number, Platform;
 ```
+- CTE:
+  - This CTE groups sales data by "calendar_year", "month_number", and "Platform".
+  - It calculates the total sales for each combination and aliases it as "TotalSales".
+  
+- CTE2:
+  - This CTE calculates the combined sales for each month and year combination.
+  - It sums up the "totalsales" from the previous CTE for each "calendar_year" and "month_number".
+  
+- The main query:
+  - This query joins the two CTEs based on matching "month_number" and "calendar_year".
+  - It calculates the percentage of each platform's sales relative to combined sales for each month and year combination.
+  - The `ROUND(totalsales/combinedsales*100, 2)` calculates the percentage and rounds it to two decimal places.
 
-This query calculates the percentage of sales for each platform (Retail and Shopify) for each month and year. It uses Common Table Expressions (CTEs) to first calculate total sales for each platform, then calculate combined sales for each month, and finally computes the percentage of sales for each platform based on the combined sales.
 | calendar_year | month_number | platform | percentage |
 |---------------|--------------|----------|------------|
 | 2018          | 3            | Retail   | 97.92      |
@@ -269,8 +295,19 @@ FROM CTE
 JOIN CTE2 ON cte.calendar_year = cte2.calendar_year
 ORDER BY calendar_year, demographics;
 ```
+- CTE:
+  - This CTE groups sales data by "calendar_year" and "demographics".
+  - It calculates the total sales for each demographic group and aliases it as "TotalSales".
+  
+- CTE2:
+  - This CTE calculates the combined sales for each calendar year.
+  - It sums up the "totalsales" from the previous CTE for each "calendar_year".
+  
+- The main query:
+  - This query joins the two CTEs based on matching "calendar_year".
+  - It calculates the percentage of each demographic group's sales relative to combined sales for each calendar year.
+  - The `ROUND(totalsales/combinedsales*100, 2)` calculates the percentage and rounds it to two decimal places.
 
-This query calculates the percentage of sales for each demographic group for each year. It uses CTEs to first calculate total sales for each demographic, then calculate combined sales for each year, and finally compute the percentage of sales for each demographic based on the combined sales.
 | calendar_year | demographics | percentage |
 |---------------|--------------|------------|
 | 2018          | Couples      | 26.38      |
@@ -294,6 +331,13 @@ WHERE platform = 'Retail'
 GROUP BY Age_band, demographics
 ORDER BY retail_sales DESC;
 ```
+
+- The `SUM(sales)` function calculates the total retail sales for each unique combination of "Age_band" and "demographics" where the "platform" is 'Retail'.
+
+- The `WHERE platform = 'Retail'` clause filters the rows to only include those where the "platform" is 'Retail'.
+
+- The `GROUP BY Age_band, demographics` clause groups the results by unique combinations of "Age_band" and "demographics". 
+
 | age_band      | demographics | retail_sales |
 |---------------|--------------|--------------|
 | Unknown       | Unknown      | 16067285533 |
@@ -304,7 +348,6 @@ ORDER BY retail_sales DESC;
 | Middle Aged   | Couples      | 1854160330  |
 | Young Adults  | Family       | 1770889293  |
 
-This query identifies the age bands and demographic values that contribute the most to Retail sales. It filters the data for Retail platform, groups it by ```Age_band``` and ```demographics```, and calculates the sum of sales for each group, then sorts the results in descending order of Retail sales.
 
 ### 9. What is the total sales for the 4 weeks before and after 2020-06-15? What is the growth or reduction rate in actual values and percentage of sales?sql
 ```sql
@@ -340,6 +383,23 @@ SELECT
     / before_sales,2) AS percentage_growth
 FROM before_after_sales;
 ```
+- Retrieving Week Number:
+  - This part uses a simple query to retrieve the week number associated with a specific date and calendar year from the "weekly_sales_clean" table.
+  - The `WHERE` clause filters based on "week_date" and "calendar_year".
+  - The `LIMIT 1` ensures only one result is returned.
+
+- CTE "Total_Sales":
+  - This CTE calculates the total sales for different week ranges within a specific calendar year (2020).
+  - It filters the data based on "week_number" and "calendar_year".
+  - The `SUM(sales)` function calculates the total sales for each combination of "week_date" and "week_number".
+
+- CTE "before_after_sales":
+  - This CTE calculates the sum of sales for two periods: before (weeks 21 to 24) and after (weeks 25 to 28).
+  - It uses the "total_sales" values calculated in the previous CTE for these ranges.
+
+- The main query:
+  - This query calculates the difference in sales growth between the "after" and "before" periods.
+  - It also calculates the percentage growth using the formula `(after_sales - before_sales) / before_sales * 100`.
 | sales_growth | percentage_growth |
 |--------------|-------------------|
 | -26884188    | -1.15             |
