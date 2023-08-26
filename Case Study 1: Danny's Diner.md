@@ -1,10 +1,7 @@
 <div align="center">
-  <h1>Danny’s Diner SQL Case Study</h1>
-  <p>Exploring Customer Behavior and Menu Insights Using SQL</p>
+  <h1>Case Study 1: Danny’s Diner</h1>
   <img src="CS1.png" alt="Danny's Diner">
 </div>
-
-# Case Study 1: Danny’s Diner
 
 ## Introduction
 Welcome to the Danny’s Diner SQL case study! In this project, we'll dive into a series of SQL queries to analyze customer transactions and menu items at Danny’s Diner. Let's explore how SQL can help us answer various questions about customer behavior, popular menu items, and more.
