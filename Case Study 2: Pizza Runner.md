@@ -1,5 +1,5 @@
 <div align="center">
-  <h1>Pizza Runner SQL Case Study</h1>
+  <h1>Case Study 2: Pizza Runner</h1>
 </div>
 
 ![image](https://github.com/maricsnel/WeeklySQLChallenge/assets/142982185/26c26776-e700-484a-9446-3551efa73ed3)
