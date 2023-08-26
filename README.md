@@ -8,13 +8,13 @@ Welcome to my GitHub repository where I take you on a journey through Danny Ma's
 
 ## Table of Contents
 
-1. [Week 1: Data Exploration](https://github.com/maricsnel/WeeklySQLChallenge/blob/WeeklySQLChallenge/Case%20Study%201:%20Danny's%20Diner.md)
-2. [Week 2: Finding the Missing Data](#week-2-finding-the-missing-data)
-3. [Week 3: Dealing with Duplicates](#week-3-dealing-with-duplicates)
-4. [Week 4: Working with Dates](#week-4-working-with-dates)
-5. [Week 5: Aggregating and Grouping](#week-5-aggregating-and-grouping)
-6. [Week 6: Window Functions](#week-6-window-functions)
-7. [Week 7: Advanced SQL Techniques](#week-7-advanced-sql-techniques)
+1. [Case Study 1: Danny's Diner](https://github.com/maricsnel/WeeklySQLChallenge/blob/WeeklySQLChallenge/Case%20Study%201:%20Danny's%20Diner.md)
+2. [Case Study 2: Pizza Runner](https://github.com/maricsnel/WeeklySQLChallenge/blob/WeeklySQLChallenge/Case%20Study%202:%20Pizza%20Runner.md)
+3. [Case Study 3: Foodie FI](https://github.com/maricsnel/WeeklySQLChallenge/commit/529d6a8dd0998ebdfb0eb6eaf463361799aa4f76)
+4. [Case Study 4: Data Bank](https://github.com/maricsnel/WeeklySQLChallenge/blob/WeeklySQLChallenge/Case%20Study%204:%20Data%20Bank.md)
+5. [Case Study 5: Data Mart](https://github.com/maricsnel/WeeklySQLChallenge/blob/WeeklySQLChallenge/Case%20Study%205:%20Data%20Mart.md)
+6. [Case Study 6 - Clique Bait](https://github.com/maricsnel/WeeklySQLChallenge/blob/WeeklySQLChallenge/Case%20Study%206%20-%20Clique%20Bait.md)
+7. [Case Study 7: Balanced Tree Clothing Co](https://github.com/maricsnel/WeeklySQLChallenge/blob/WeeklySQLChallenge/Case%20Study%207:%20Balanced%20Tree%20Clothing%20Co..md)
 
 Throughout this repository, you'll find detailed explanations of each week's challenge, along with the SQL queries I employed and the insights I derived from the data. I've documented my thought process, methodologies, and reflections on each challenge, showcasing my evolving SQL proficiency.
 
