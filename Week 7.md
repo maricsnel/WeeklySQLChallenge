@@ -1,10 +1,8 @@
 <div align="center">
-  <h1>Danny’s Diner SQL Case Study</h1>
-  <p>Exploring Customer Behavior and Menu Insights Using SQL</p>
-  <img src="CS1.png" alt="Danny's Diner">
+  <h1>Case Study 7: Balanced Tree Clothing Co.</h1>
 </div>
 
-# Case Study 1: Danny’s Diner
+![image](https://github.com/maricsnel/WeeklySQLChallenge/assets/142982185/1d76902e-6769-4a2c-ab8b-76fa3dbc2dcf)
 
 ## Introduction
 
@@ -18,7 +16,11 @@ FROM balanced_tree.sales
 JOIN balanced_tree.product_details ON product_details.product_id = sales.prod_id
 GROUP BY product_name;
 ```
-This query calculates the total quantity sold for each product.
+- The `SELECT` clause includes two columns: "product_name" and the sum of "QTY" (quantity).
+
+- The `JOIN` clause joins the "sales" and "product_details" tables based on matching "product_id" values.
+
+- The `GROUP BY product_name` clause groups the results by unique "product_name" values.
 
 | product_name                  | total_quantity_sold |
 |------------------------------|---------------------|
@@ -51,7 +53,15 @@ FROM ProductQuantities AS pq
 JOIN balanced_tree.product_details AS pd ON pd.product_name = pq.product_name
 ORDER BY Total_Revenue_Before_Discounts DESC;
 ```
-This query calculates the total revenue generated for each product before applying discounts.
+- CTE "ProductQuantities":
+  - This CTE calculates the total quantity sold for each product by joining the "sales" and "product_details" tables in the "balanced_tree" database.
+  - It retrieves the "product_name" and sums the "QTY" values.
+  - The results are grouped by "product_name".
+
+- The main query:
+  - This query calculates the total revenue before discounts for each product.
+  - It performs a join between the "ProductQuantities" CTE and the "product_details" table based on matching "product_name" values.
+  - The calculated revenue is the product of the total quantity sold and the price of the product.
 
 | product_name                  | total_revenue_before_discounts |
 |------------------------------|--------------------------------|
@@ -78,7 +88,9 @@ FROM balanced_tree.sales
 JOIN balanced_tree.product_details AS product ON sales.prod_id = product.product_id
 GROUP BY product.product_name;
 ```
-This query calculates the total discount amount for each product based on the sales data.
+- The calculation for the total discount amount is performed using the `SUM` function on the product of "qty" (quantity), "price", and "discount" divided by 100 (to get the actual discount value).
+
+- The `GROUP BY product.product_name` clause groups the results by unique "product_name" values.
 
 | product_name                  | total_discount_amount |
 |------------------------------|-----------------------|
@@ -103,7 +115,7 @@ This query calculates the total discount amount for each product based on the sa
 SELECT COUNT(DISTINCT txn_id) AS Unique_Transactions_Count
 FROM balanced_tree.sales;
 ```
-This query counts the number of unique transactions.
+- The `COUNT(DISTINCT txn_id)` function calculates the number of unique transaction IDs in the "sales" table.
 
 | unique_transactions_count |
 |--------------------------|
@@ -115,7 +127,12 @@ This query counts the number of unique transactions.
 SELECT COUNT(prod_id) / COUNT(DISTINCT txn_id) AS Average_Unique_Products_Per_Transaction
 FROM balanced_tree.sales;
 ```
-This query calculates the average number of unique products purchased in each transaction.
+
+- The `COUNT(prod_id)` function calculates the total count of "prod_id" values in the "sales" table.
+
+- The `COUNT(DISTINCT txn_id)` function calculates the count of distinct transaction IDs in the "sales" table.
+
+- The division `/` operator calculates the ratio of the total product IDs to the total distinct transaction IDs.
 
 | average_unique_products_per_transaction |
 |----------------------------------------|
@@ -136,7 +153,13 @@ SELECT
     PERCENTILE_CONT(0.75) WITHIN GROUP (ORDER BY Revenue) AS "75th Percentile"
 FROM TransactionRevenue;
 ```
-This query calculates the 25th, 50th, and 75th percentile values for the revenue per transaction.
+- CTE "TransactionRevenue":
+  - This CTE calculates the total revenue for each transaction by summing the product of "QTY" (quantity) and "Price" columns.
+  - The results are grouped by "TXN_ID".
+
+- The main query:
+  - This query calculates the specified percentiles (25th, 50th, and 75th percentiles) of transaction revenues.
+  - The `PERCENTILE_CONT` function is used with the `WITHIN GROUP` clause to calculate the specified percentiles.
 
 | 25th Percentile | 50th Percentile | 75th Percentile |
 |-----------------|-----------------|-----------------|
@@ -149,7 +172,10 @@ SELECT
     COUNT(DISTINCT TXN_ID), 2) AS Average_Discount_Value_Per_Transaction
 FROM balanced_tree.sales;
 ```
-This query calculates the average discount value applied per transaction.
+- The calculation for the average discount value per transaction is performed as follows:
+  - The `SUM` function calculates the total sum of the discounted revenue for all transactions. It multiplies the product of "Price", "QTY", and the discount percentage ("discount / 100").
+  - The `COUNT(DISTINCT TXN_ID)` function calculates the count of distinct transaction IDs in the "sales" table.
+  - The division `/` operator calculates the ratio of the total discounted revenue to the total distinct transaction IDs.
 
 | average_discount_value_per_transaction |
 |----------------------------------------|
@@ -180,7 +206,22 @@ FROM TransactionCounts
 CROSS JOIN MemberTransactions
 CROSS JOIN NonMemberTransactions;
 ```
-This query calculates the percentage split of transactions between members and non-members.
+- The query calculates the percentage of member and non-member transactions based on the "sales" table in the "balanced_tree" database.
+
+- CTE "TransactionCounts":
+  - This CTE calculates the total count of distinct transaction IDs as "Total_Transactions".
+
+- CTE "MemberTransactions":
+  - This CTE calculates the count of distinct transaction IDs for member transactions as "Member_Transactions". It filters rows where "Member" is true.
+
+- CTE "NonMemberTransactions":
+  - This CTE calculates the count of distinct transaction IDs for non-member transactions as "NonMember_Transactions". It filters rows where "Member" is false.
+
+- The main query:
+  - This query calculates the percentages of member and non-member transactions.
+  - It performs cross joins between the three CTEs to combine the results.
+  - The percentages are calculated by dividing the counts of member and non-member transactions by the total transactions and multiplying by 100.
+
 | member_transaction_percentage | nonmember_transaction_percentage |
 |------------------------------|----------------------------------|
 |             60.20            |              39.80               |
@@ -202,7 +243,17 @@ SELECT
     NonMemberRevenue.Average_Revenue_NonMembers
 FROM MemberRevenue, NonMemberRevenue;
 ```
-This query calculates the average revenue for member and non-member transactions.
+- CTE "MemberRevenue":
+  - This CTE calculates the average revenue per transaction for members.
+  - It divides the sum of the product of "QTY" (quantity) and "Price" by the count of distinct transaction IDs where "Member" is true.
+
+- CTE "NonMemberRevenue":
+  - This CTE calculates the average revenue per transaction for non-members.
+  - It divides the sum of the product of "QTY" and "Price" by the count of distinct transaction IDs where "Member" is false.
+
+- The main query:
+  - This query retrieves the calculated average revenue values from the "MemberRevenue" and "NonMemberRevenue" CTEs.
+  - The results are obtained through cross joins between the two CTEs.
 
 | average_revenue_members | average_revenue_nonmembers |
 |------------------------|--------------------------|
@@ -220,7 +271,14 @@ GROUP BY product_name
 ORDER BY Revenue DESC
 LIMIT 3;
 ```
-This query retrieves the top 3 products based on their total revenue before discounts.
+
+- The calculation for the total revenue is performed by multiplying the "QTY" and "Price" for each sale.
+
+- The `JOIN` clause joins the "sales" table with the "product_details" table based on matching "prod_id" and "product_id" values.
+
+- The `GROUP BY product_name` clause groups the results by unique "product_name" values.
+
+- The `LIMIT 3` clause limits the output to the top three products.
 
 | product_name             | revenue |
 |--------------------------|---------|
@@ -241,7 +299,14 @@ FROM balanced_tree.sales
 JOIN balanced_tree.product_details ON sales.prod_id = product_details.product_id
 GROUP BY segment_name;
 ```
-This query calculates the total quantity, revenue, and discount for each segment.
+- The calculations involve the following:
+  - Total_Quantity: The `SUM(QTY)` function calculates the total quantity sold for each segment.
+  - Total_Revenue: The `SUM(QTY * sales.Price)` function calculates the total revenue generated by summing the product of quantity and price for each segment.
+  - Total_Discount: The `SUM((QTY * sales.Price) * (discount / 100::numeric))` function calculates the total discount amount by summing the discounted revenue for each segment. It multiplies the product of quantity, price, and discount percentage.
+
+- The `JOIN` clause joins the "sales" table with the "product_details" table based on matching "prod_id" and "product_id" values.
+
+- The `GROUP BY segment_name` clause groups the results by unique "segment_name" values.
 
 | segment_name | total_quantity | total_revenue | total_discount |
 |--------------|----------------|---------------|----------------|
@@ -270,7 +335,13 @@ SELECT
 FROM RankedProducts
 WHERE Rank = 1;
 ```
-This query identifies the top selling product for each segment.
+- CTE "RankedProducts":
+  - This CTE calculates the total quantity sold for each product within each segment.
+  - It assigns a rank to each product within each segment based on the total quantity sold in descending order.
+
+- The main query:
+  - This query retrieves the segment name, product name, and total quantity sold for products that have a rank of 1 within their respective segments.
+  - The `WHERE Rank = 1` clause filters the results to only include products with a rank of 1.
 
 | segment_name | product_name                | total_quantity |
 |--------------|-----------------------------|----------------|
@@ -291,7 +362,14 @@ FROM balanced_tree.sales
 JOIN balanced_tree.product_details ON sales.prod_id = product_details.product_id
 GROUP BY category_name;
 ```
-This query calculates the total quantity, revenue, and discount for each category.
+- The calculations involve the following:
+  - Total_Quantity: The `SUM(QTY)` function calculates the total quantity sold for each product category.
+  - Total_Revenue: The `SUM(QTY * sales.Price)` function calculates the total revenue generated by summing the product of quantity and price for each product category.
+  - Total_Discount: The `SUM((QTY * sales.Price) * (discount / 100::numeric))` function calculates the total discount amount by summing the discounted revenue for each product category. It multiplies the product of quantity, price, and discount percentage.
+
+- The `JOIN` clause joins the "sales" table with the "product_details" table based on matching "prod_id" and "product_id" values.
+
+- The `GROUP BY category_name` clause groups the results by unique "category_name" values.
 
 | category_name | total_quantity | total_revenue | total_discount |
 |---------------|----------------|---------------|----------------|
@@ -317,7 +395,13 @@ SELECT
 FROM Ranked
 WHERE Ranks = 1;
 ```
-This query uses a Common Table Expression (CTE) named ```Ranked``` to rank products within each category based on their total quantities sold. The ```RANK()``` function is used for ranking. Then, the main query selects the products with a rank of 1 from each category, indicating the top-selling products in each category.
+- CTE "Ranked":
+  - This CTE calculates the total quantity sold for each product within each category.
+  - It assigns a rank to each product within each category based on the total quantity sold in descending order.
+
+- The main query:
+  - This query retrieves the category name, product name, and total quantity sold for products that have a rank of 1 within their respective categories.
+  - The `WHERE Ranks = 1` clause filters the results to only include products with a rank of 1.
 
 | category_name | product_name                | total_quantity |
 |---------------|-----------------------------|----------------|
@@ -355,7 +439,17 @@ JOIN total ON segments.segment_name = total.segment_name
 ORDER BY 
     segment_name;
 ```
-This query calculates the percentage split of revenue by product within each segment. The ```Segments``` CTE calculates the revenue for each product within a segment, while the ```Total``` CTE calculates the total revenue for each segment. The main query then computes the revenue split percentage for each product within its segment.
+- CTE "Segments":
+  - This CTE calculates the revenue generated by each product within segments.
+  - It calculates the sum of the product of "QTY" (quantity) and "Price" for each product within each segment.
+
+- CTE "Total":
+  - This CTE calculates the total revenue generated within each segment.
+  - It calculates the sum of the product of "QTY" and "Price" for all products within each segment.
+
+- The main query:
+  - The calculation for the revenue split percentage is done by dividing the product's revenue by the total revenue for the segment and then multiplying by 100.
+  - The `JOIN` clause combines the "Segments" CTE with the "Total" CTE based on the segment name.
 
 | segment_name | product_name                | revenue_split |
 |--------------|-----------------------------|---------------|
@@ -405,7 +499,17 @@ JOIN total
 ON segments.category_name = total.category_name
 ORDER By category_name;
 ```
-This query calculates the percentage split of revenue by segment within each category. The ```Segments``` CTE calculates the revenue for each segment within a category, while the ```Total``` CTE calculates the total revenue for each category. The main query then computes the revenue split percentage for each segment within its category.
+- CTE "Segments":
+  - This CTE calculates the revenue generated by each segment within each category.
+  - It calculates the sum of the product of "QTY" (quantity) and "Price" for each segment within each category.
+
+- CTE "Total":
+  - This CTE calculates the total revenue generated within each category.
+  - It calculates the sum of the product of "QTY" and "Price" for all segments within each category.
+
+- The main query:
+  - The calculation for the revenue split percentage is done by dividing the segment's revenue by the total revenue for the category and then multiplying by 100.
+  - The `JOIN` clause combines the "Segments" CTE with the "Total" CTE based on the category name.
 
 | category_name | segment_name | revenue_split |
 |---------------|--------------|---------------|
@@ -441,7 +545,19 @@ CROSS JOIN
     Total;
 ```
 
-This query calculates the percentage split of total revenue by category. The ```Segments``` CTE calculates the revenue for each category, while the ```Total``` CTE calculates the overall total revenue. The main query then computes the revenue split percentage for each category. Since there's a single value for total revenue, a cross join with the ```Total``` CTE is used to calculate the percentage split for each category.
+- CTE "Segments":
+  - This CTE calculates the total revenue generated for each product category.
+  - It calculates the sum of the product of "QTY" (quantity) and "Price" for all products within each category.
+
+- CTE "Total":
+  - This CTE calculates the overall total revenue generated across all categories.
+  - It calculates the sum of the product of "QTY" and "Price" for all products.
+
+- The main query:
+  - This query retrieves the category name and revenue split percentage for each product category.
+  - The calculation for the revenue split percentage is done by dividing the category's revenue by the total revenue across all categories and then multiplying by 100.
+  - The `CROSS JOIN` clause combines the "Segments" CTE with the "Total" CTE, resulting in a single-row "Total" value that can be used to calculate the percentage for each category.
+
 | category_name | revenue_split |
 |---------------|---------------|
 | Mens          | 55.38         |
