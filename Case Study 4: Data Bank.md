@@ -15,7 +15,7 @@ In the realm of modern banking, data-driven insights play a pivotal role in unde
 
 ## A. Customer Nodes Exploration
 
-### 1 How many unique nodes are there on the Data Bank system?
+### 1. How many unique nodes are there on the Data Bank system?
 ```sql
 SELECT COUNT(DISTINCT node_id) as Nodes
 FROM data_bank.customer_nodes;
@@ -37,7 +37,6 @@ GROUP BY Region_Name;
 - `COUNT(DISTINCT node_id) as Nodes`: This column calculates the count of unique values in the "node_id" column of the "customer_nodes" table. Each unique value is counted only once, and the result column is labeled as "Nodes".
 
 - The `JOIN data_bank.regions ON customer_nodes.region_id = regions.region_id` clause performs an inner join between the "customer_nodes" table and the "regions" table.
-- 
 - The `GROUP BY Region_Name` clause groups the data by the values in the "Region_Name" column. 
 
 
@@ -370,3 +369,17 @@ ON customer_transactions.customer_id = cte3.customer_id
 4. **Upgrade Timing**: Collecting customer feedback on the reallocation process and overall banking experience could highlight areas for improvement. Insights from customer opinions can guide refinements to the reallocation strategy, leading to enhanced customer satisfaction and loyalty.
 
 In conclusion, the Data Bank case study has revealed several key findings that reflect the operational health of the system and positive customer behaviors. By delving deeper into these findings and implementing the suggested improvements, the bank can enhance its operational efficiency, customer engagement, and financial well-being offerings.
+
+## Other Case Studies
+
+[Case Study 1: Danny's Diner](https://github.com/maricsnel/WeeklySQLChallenge/blob/WeeklySQLChallenge/Case%20Study%201:%20Danny's%20Diner.md)
+
+[Case Study 2: Pizza Runner](https://github.com/maricsnel/WeeklySQLChallenge/blob/WeeklySQLChallenge/Case%20Study%202:%20Pizza%20Runner.md)
+
+[Case Study 3: Foodie FI](https://github.com/maricsnel/WeeklySQLChallenge/commit/529d6a8dd0998ebdfb0eb6eaf463361799aa4f76)
+
+[Case Study 5: Data Mart](https://github.com/maricsnel/WeeklySQLChallenge/blob/WeeklySQLChallenge/Case%20Study%205:%20Data%20Mart.md)
+
+[Case Study 6: Clique Bait](https://github.com/maricsnel/WeeklySQLChallenge/blob/WeeklySQLChallenge/Case%20Study%206%20-%20Clique%20Bait.md)
+
+[Case Study 7: Balanced Tree Clothing Co](https://github.com/maricsnel/WeeklySQLChallenge/blob/WeeklySQLChallenge/Case%20Study%207:%20Balanced%20Tree%20Clothing%20Co..md)
