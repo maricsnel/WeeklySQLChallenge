@@ -117,7 +117,9 @@ WHERE plan_id = 4;
   
 - The `WHERE plan_id = 4` clause filters the data to include only rows where the "plan_id" is 4, representing churned customers.
 
-| churnedcustomers | percentage    |
+
+| Churned Customers   | Churn %  |
+|-----------------------------|------------------|
 | 307             | 30.7          |
 
 ### 5. How many customers have churned after their initial free trial?
@@ -168,7 +170,6 @@ GROUP BY Plan_ID;
   - The `Plan_Id` column is selected, representing the plan ID of each subscription.
   - The calculation `COUNT(Plan_ID)` counts the number of subscriptions for each unique plan ID.
   - The calculation `COUNT(Plan_ID)::float / (SELECT COUNT(DISTINCT Customer_ID) FROM Foodie_fi.subscriptions) * 100` calculates the percentage of subscriptions for each plan relative to the total distinct customer count.
-  - 
 - The `WHERE Row = 2` clause filters the data to include only the second subscription for each customer.
 
 
@@ -367,4 +368,16 @@ Where plan_ID = 2 and nextsubscription = 1
 
 In this Foodie-Fi case exploration, we've unearthed vital insights from customer onboarding and subscription data. The findings emphasize the significance of timely conversions after trials, the popularity of flexible plans, and the allure of longer commitments. By leveraging these insights, Foodie-Fi can refine its strategies, tailor plans, and elevate user experiences to foster sustained growth and customer satisfaction.
 
+## Other Case Studies
 
+[Case Study 1: Danny's Diner](https://github.com/maricsnel/WeeklySQLChallenge/blob/WeeklySQLChallenge/Case%20Study%201:%20Danny's%20Diner.md)
+
+[Case Study 2: Pizza Runner](https://github.com/maricsnel/WeeklySQLChallenge/blob/WeeklySQLChallenge/Case%20Study%202:%20Pizza%20Runner.md)
+
+[Case Study 4: Data Bank](https://github.com/maricsnel/WeeklySQLChallenge/blob/WeeklySQLChallenge/Case%20Study%204:%20Data%20Bank.md)
+
+[Case Study 5: Data Mart](https://github.com/maricsnel/WeeklySQLChallenge/blob/WeeklySQLChallenge/Case%20Study%205:%20Data%20Mart.md)
+
+[Case Study 6: Clique Bait](https://github.com/maricsnel/WeeklySQLChallenge/blob/WeeklySQLChallenge/Case%20Study%206%20-%20Clique%20Bait.md)
+
+[Case Study 7: Balanced Tree Clothing Co](https://github.com/maricsnel/WeeklySQLChallenge/blob/WeeklySQLChallenge/Case%20Study%207:%20Balanced%20Tree%20Clothing%20Co..md)
