@@ -574,3 +574,16 @@ CROSS JOIN
 
 In summary, the insights garnered from the analysis underscore the potential for transaction optimization and tailored strategies. By recognizing customers' inclination toward multi-item purchases, implementing features like the "Frequently Bought Together" suggestion and introducing alluring promotions, Balanced Tree Clothing Co. can harness increased transaction values. Further, the segmentation-driven approach to discounts, especially for members, holds the key to reinforcing loyalty and driving conversions. By refining the membership program to offer personalized recommendations and exclusive access, the company is primed to elevate member spending, fostering long-term engagement and loyalty in a competitive fashion landscape.
    
+## Other Case Studies
+
+[Case Study 1: Danny's Diner](https://github.com/maricsnel/WeeklySQLChallenge/blob/WeeklySQLChallenge/Case%20Study%201:%20Danny's%20Diner.md)
+
+[Case Study 2: Pizza Runner](https://github.com/maricsnel/WeeklySQLChallenge/blob/WeeklySQLChallenge/Case%20Study%202:%20Pizza%20Runner.md)
+
+[Case Study 3: Foodie FI](https://github.com/maricsnel/WeeklySQLChallenge/commit/529d6a8dd0998ebdfb0eb6eaf463361799aa4f76)
+
+[Case Study 4: Data Bank](https://github.com/maricsnel/WeeklySQLChallenge/blob/WeeklySQLChallenge/Case%20Study%204:%20Data%20Bank.md)
+
+[Case Study 5: Data Mart](https://github.com/maricsnel/WeeklySQLChallenge/blob/WeeklySQLChallenge/Case%20Study%205:%20Data%20Mart.md)
+
+[Case Study 6: Clique Bait](https://github.com/maricsnel/WeeklySQLChallenge/blob/WeeklySQLChallenge/Case%20Study%206%20-%20Clique%20Bait.md)
