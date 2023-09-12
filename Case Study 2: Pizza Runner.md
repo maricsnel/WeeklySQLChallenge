@@ -273,7 +273,8 @@ ORDER BY hour_of_day ASC;
 
 - **Ordering Results (`ORDER BY`):** Sort the results by the hour of the day in ascending order.
 
-- **Result:** The query produces a result set with columns: "hour_of_day" (the extracted hour from "order_time") and the count of pizza orders ("Pizza_ID") placed during each hour of the day. 
+- **Result:** The query produces a result set with columns: "hour_of_day" (the extracted hour from "order_time") and the count of pizza orders ("Pizza_ID") placed during each hour of the day.
+  
 | hour_of_day | count |
 | ----------- | ----- |
 | 11          | 1     |
@@ -341,3 +342,10 @@ Upon delving into the analysis of Pizza Runner's customer orders and runner acti
 
 In conclusion, these insights empower Pizza Runner to make data-driven decisions that positively impact their business operations. By tailoring their offerings based on popular pizza choices, recognizing and incentivizing efficient runners, and optimizing service during peak hours, Pizza Runner can elevate customer satisfaction, increase efficiency, and ensure a seamless delivery experience.
 
+## Other Case Studies
+1. [Case Study 1: Danny's Diner](https://github.com/maricsnel/WeeklySQLChallenge/blob/WeeklySQLChallenge/Case%20Study%201:%20Danny's%20Diner.md)
+3. [Case Study 3: Foodie FI](https://github.com/maricsnel/WeeklySQLChallenge/commit/529d6a8dd0998ebdfb0eb6eaf463361799aa4f76)
+4. [Case Study 4: Data Bank](https://github.com/maricsnel/WeeklySQLChallenge/blob/WeeklySQLChallenge/Case%20Study%204:%20Data%20Bank.md)
+5. [Case Study 5: Data Mart](https://github.com/maricsnel/WeeklySQLChallenge/blob/WeeklySQLChallenge/Case%20Study%205:%20Data%20Mart.md)
+6. [Case Study 6: Clique Bait](https://github.com/maricsnel/WeeklySQLChallenge/blob/WeeklySQLChallenge/Case%20Study%206%20-%20Clique%20Bait.md)
+7. [Case Study 7: Balanced Tree Clothing Co](https://github.com/maricsnel/WeeklySQLChallenge/blob/WeeklySQLChallenge/Case%20Study%207:%20Balanced%20Tree%20Clothing%20Co..md)
