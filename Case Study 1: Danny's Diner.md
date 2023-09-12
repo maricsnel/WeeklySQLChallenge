@@ -341,3 +341,12 @@ Our findings illuminate the path to success:
 - Data-Driven Decisions: These queries exemplify the power of data analysis in steering strategic decisions that foster customer satisfaction and loyalty.
 
 As we conclude this case study, remember that behind the numbers lies the ability to shape remarkable dining experiences. Through data-driven insights, Danny’s Diner stands poised to refine its offerings, create loyal patrons, and thrive in the competitive culinary landscape. The journey of Danny’s Diner exemplifies how harnessing the potential of data can revolutionize the world of hospitality.
+
+## Other Case Studies
+
+2. [Case Study 2: Pizza Runner](https://github.com/maricsnel/WeeklySQLChallenge/blob/WeeklySQLChallenge/Case%20Study%202:%20Pizza%20Runner.md)
+3. [Case Study 3: Foodie FI](https://github.com/maricsnel/WeeklySQLChallenge/commit/529d6a8dd0998ebdfb0eb6eaf463361799aa4f76)
+4. [Case Study 4: Data Bank](https://github.com/maricsnel/WeeklySQLChallenge/blob/WeeklySQLChallenge/Case%20Study%204:%20Data%20Bank.md)
+5. [Case Study 5: Data Mart](https://github.com/maricsnel/WeeklySQLChallenge/blob/WeeklySQLChallenge/Case%20Study%205:%20Data%20Mart.md)
+6. [Case Study 6: Clique Bait](https://github.com/maricsnel/WeeklySQLChallenge/blob/WeeklySQLChallenge/Case%20Study%206%20-%20Clique%20Bait.md)
+7. [Case Study 7: Balanced Tree Clothing Co](https://github.com/maricsnel/WeeklySQLChallenge/blob/WeeklySQLChallenge/Case%20Study%207:%20Balanced%20Tree%20Clothing%20Co..md)
