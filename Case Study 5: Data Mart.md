@@ -417,3 +417,18 @@ FROM before_after_sales;
    
 
 In this exploration of retail data, we've uncovered valuable insights that can drive strategic decisions. By addressing data gaps, tailoring strategies to day-of-week trends, and delving into demographics and platforms, opportunities for growth and optimization emerge. As the retail landscape continues to evolve, leveraging these findings can pave the way for enhanced customer engagement, strategic planning, and sustainable success.
+
+## Other Case Studies
+
+[Case Study 1: Danny's Diner](https://github.com/maricsnel/WeeklySQLChallenge/blob/WeeklySQLChallenge/Case%20Study%201:%20Danny's%20Diner.md)
+
+[Case Study 2: Pizza Runner](https://github.com/maricsnel/WeeklySQLChallenge/blob/WeeklySQLChallenge/Case%20Study%202:%20Pizza%20Runner.md)
+
+[Case Study 3: Foodie FI](https://github.com/maricsnel/WeeklySQLChallenge/commit/529d6a8dd0998ebdfb0eb6eaf463361799aa4f76)
+
+[Case Study 4: Data Bank](https://github.com/maricsnel/WeeklySQLChallenge/blob/WeeklySQLChallenge/Case%20Study%204:%20Data%20Bank.md)
+
+[Case Study 6: Clique Bait](https://github.com/maricsnel/WeeklySQLChallenge/blob/WeeklySQLChallenge/Case%20Study%206%20-%20Clique%20Bait.md)
+
+[Case Study 7: Balanced Tree Clothing Co](https://github.com/maricsnel/WeeklySQLChallenge/blob/WeeklySQLChallenge/Case%20Study%207:%20Balanced%20Tree%20Clothing%20Co..md)
+
