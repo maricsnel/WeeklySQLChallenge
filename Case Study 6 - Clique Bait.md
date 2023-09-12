@@ -240,3 +240,18 @@ ON cart.product_category = allviews.product_category;
 3. **User Interaction Trends by Month**: The analysis reveals varying levels of user engagement across different months. While some months witness higher unique visits, others experience a decline. To maintain consistent engagement implement monthly campaigns. Design targeted marketing campaigns aligned with user trends. Offer season-specific promotions, events, or content to sustain user interest and engagement throughout the year.
    
 The "Clique Bait" analysis has illuminated crucial patterns in user engagement and behavior. By acting on these insights—optimizing conversion pathways, refining checkout experiences, and harnessing ad impact—Clique Bait has the power to forge stronger connections, drive conversions, and ultimately elevate its position in the digital marketplace. The road ahead is one of strategic adaptation, where data-driven decisions pave the way for enhanced customer experiences and sustained growth.
+
+## Other Case Studies
+
+[Case Study 1: Danny's Diner](https://github.com/maricsnel/WeeklySQLChallenge/blob/WeeklySQLChallenge/Case%20Study%201:%20Danny's%20Diner.md)
+
+[Case Study 2: Pizza Runner](https://github.com/maricsnel/WeeklySQLChallenge/blob/WeeklySQLChallenge/Case%20Study%202:%20Pizza%20Runner.md)
+
+[Case Study 3: Foodie FI](https://github.com/maricsnel/WeeklySQLChallenge/commit/529d6a8dd0998ebdfb0eb6eaf463361799aa4f76)
+
+[Case Study 4: Data Bank](https://github.com/maricsnel/WeeklySQLChallenge/blob/WeeklySQLChallenge/Case%20Study%204:%20Data%20Bank.md)
+
+[Case Study 5: Data Mart](https://github.com/maricsnel/WeeklySQLChallenge/blob/WeeklySQLChallenge/Case%20Study%205:%20Data%20Mart.md)
+
+[Case Study 7: Balanced Tree Clothing Co](https://github.com/maricsnel/WeeklySQLChallenge/blob/WeeklySQLChallenge/Case%20Study%207:%20Balanced%20Tree%20Clothing%20Co..md)
+
